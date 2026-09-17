@@ -32,10 +32,14 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        
+        if (Auth::user()->role === 'superadmin') {
+            return redirect()->intended(route('superadmin.panel', absolute: false));
+        }
+        
         return redirect()->intended(route('dashboard', absolute: false));
     }
-
+    
     /**
      * Destroy an authenticated session.
      */
