@@ -9,15 +9,13 @@ class Necesidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'necesidad';
+    protected $table = 'necesidades';
     protected $primaryKey = 'idNecesidad';
 
     protected $fillable = [
         'idEmprendimiento',
         'titulo',
         'tipo',
-        'descripcion',
-        'prioridad',
         'estado',
     ];
 

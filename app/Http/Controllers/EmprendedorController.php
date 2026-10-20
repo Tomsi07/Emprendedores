@@ -14,7 +14,7 @@ class EmprendedorController extends Controller
             ->orderBy('idEmprendedor', 'desc')
             ->get();
 
-        return Inertia::render('pages/emprendedores/index', [
+        return Inertia::render('emprendedores/index', [
             'emprendedores' => $emprendedores,
             'flash' => [
                 'message' => session('message')

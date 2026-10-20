@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmprendedorController;
 use App\Http\Controllers\EmprendimientoController;
-use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\EventoController;
 use App\Http\Controllers\NecesidadController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
     // Los 3 CRUDs principales
     Route::resource('emprendimientos', EmprendimientoController::class);
-    Route::resource('actividades', ActividadController::class);
+    Route::resource('eventos', EventoController::class);
     Route::resource('necesidades', NecesidadController::class);
 
     // Superadmin
