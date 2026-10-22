@@ -5,6 +5,7 @@ use App\Http\Controllers\EmprendedorController;
 use App\Http\Controllers\EmprendimientoController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\NecesidadController;
+use App\Http\Controllers\AsignacionController;
 use Illuminate\Support\Facades\Route;
 
 // Redirecciones iniciales
@@ -18,7 +19,7 @@ Route::get('/dashboard', function () {
 
 // Rutas protegidas
 Route::middleware('auth')->group(function () {
-    
+
     // Perfil del usuario
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -34,14 +35,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('actividades', ActividadController::class);
     Route::resource('necesidades', NecesidadController::class);
 
-    //superadmin
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/superadmin', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('superadmin.panel');
-    Route::prefix('superadmin')->name('superadmin.')->group(function () {
-    Route::get('/', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('panel');
-    Route::resource('usuarios', App\Http\Controllers\SuperAdmin\UsuarioController::class)->except(['show']);
-});
+    // Asignaciones (emprendimientos <-> eventos)
+    Route::get('/asignaciones', [AsignacionController::class, 'index'])->name('asignaciones.index');
+    Route::get('/asignaciones/{evento}', [AsignacionController::class, 'show'])->name('asignaciones.show');
+    Route::patch('/asignaciones/{evento}/emprendimientos/{emprendimiento}', [AsignacionController::class, 'update'])->name('asignaciones.update');
 
+    // Superadmin
+    Route::prefix('superadmin')->name('superadmin.')->group(function () {
+        Route::get('/', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('panel');
+        Route::resource('usuarios', App\Http\Controllers\SuperAdmin\UsuarioController::class)->except(['show']);
+    });
+
+});
 require __DIR__.'/auth.php';

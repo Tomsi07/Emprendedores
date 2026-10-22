@@ -9,7 +9,7 @@ class Necesidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'necesidades';
+    protected $table = 'necesidad';
     protected $primaryKey = 'idNecesidad';
 
     protected $fillable = [

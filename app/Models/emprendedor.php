@@ -9,18 +9,27 @@ class Emprendedor extends Model
 {
     use HasFactory;
 
-protected $table = 'emprendedores';
-protected $primaryKey = 'idEmprendedor';
+    protected $table = 'emprendedor';
+    protected $primaryKey = 'idEmprendedor';
+    public $timestamps = false;
 
     protected $fillable = [
         'nombreEmprendedor',
         'apellido',
-        'telefono',
+        'domicilio',
+        'contacto',
         'email',
+        'dni',
+        'formalizacion',
     ];
 
     public function emprendimientos()
     {
-        return $this->hasMany(Emprendimiento::class, 'idEmprendedor', 'idEmprendedor');
+        return $this->belongsToMany(
+            Emprendimiento::class,
+            'emprendedor_emprendimiento',
+            'idEmprendedor',
+            'idEmprendimiento'
+        );
     }
 }

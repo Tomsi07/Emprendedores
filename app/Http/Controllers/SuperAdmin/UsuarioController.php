@@ -12,8 +12,11 @@ class UsuarioController extends Controller
 {
     public function index()
     {
+        
         return Inertia::render('SuperAdmin/Usuarios/Index', [
-            'usuarios' => User::select('id', 'name', 'email', 'role')->orderBy('name')->get(),
+            'usuarios' => User::select('id', 'name', 'email')
+                ->latest()
+                ->paginate(10),
         ]);
     }
 
