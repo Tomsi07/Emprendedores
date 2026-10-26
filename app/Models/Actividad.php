@@ -25,6 +25,10 @@ class Actividad extends Model
     {
         return $this->belongsTo(Emprendimiento::class, 'idEmprendimiento', 'idEmprendimiento');
     }
+<<<<<<< HEAD:app/Models/actividad.php
 
 
 }
+=======
+}
+>>>>>>> origin/main:app/Models/Actividad.php

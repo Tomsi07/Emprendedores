@@ -9,8 +9,13 @@ class Emprendimiento extends Model
 {
     use HasFactory;
 
+<<<<<<< HEAD:app/Models/emprendimiento.php
     protected $table = 'emprendimiento';
     protected $primaryKey = 'idEmprendimiento';
+=======
+protected $table = 'emprendimiento';
+protected $primaryKey = 'idEmprendimiento';
+>>>>>>> origin/main:app/Models/Emprendimiento.php
 
     protected $fillable = [
         'idEmprendedor',

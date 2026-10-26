@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmprendedorController;
 use App\Http\Controllers\EmprendimientoController;
-use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\EventoController;
 use App\Http\Controllers\NecesidadController;
 use App\Http\Controllers\AsignacionController;
 use Illuminate\Support\Facades\Route;
@@ -32,9 +32,10 @@ Route::middleware('auth')->group(function () {
 
     // Los 3 CRUDs principales
     Route::resource('emprendimientos', EmprendimientoController::class);
-    Route::resource('actividades', ActividadController::class);
+    Route::resource('eventos', EventoController::class);
     Route::resource('necesidades', NecesidadController::class);
 
+<<<<<<< HEAD
     // Asignaciones (emprendimientos <-> eventos)
     Route::get('/asignaciones', [AsignacionController::class, 'index'])->name('asignaciones.index');
     Route::get('/asignaciones/{evento}', [AsignacionController::class, 'show'])->name('asignaciones.show');
@@ -48,3 +49,13 @@ Route::middleware('auth')->group(function () {
 
 });
 require __DIR__.'/auth.php';
+=======
+    // Superadmin
+    Route::prefix('superadmin')->name('superadmin.')->group(function () {
+        Route::get('/', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('panel');
+        Route::resource('usuarios', App\Http\Controllers\SuperAdmin\UsuarioController::class)->except(['show']);
+    });
+
+});
+require __DIR__.'/auth.php';
+>>>>>>> origin/main

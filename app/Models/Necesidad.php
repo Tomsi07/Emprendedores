@@ -16,8 +16,6 @@ class Necesidad extends Model
         'idEmprendimiento',
         'titulo',
         'tipo',
-        'descripcion',
-        'prioridad',
         'estado',
     ];
 

@@ -5,6 +5,10 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const showPassword = ref(false);
+const showPasswordConfirm = ref(false);
 
 const form = useForm({
     name: '',
@@ -59,37 +63,49 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
+                <div class="relative mt-1">
+                    <TextInput
+                        id="password"
+                        :type="showPassword ? 'text' : 'password'"
+                        class="block w-full pr-16"
+                        v-model="form.password"
+                        required
+                        autocomplete="new-password"
+                    />
+                    <button
+                        type="button"
+                        @click="showPassword = !showPassword"
+                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700 text-xs font-semibold focus:outline-none"
+                    >
+                        {{ showPassword ? 'Ocultar' : 'Ver' }}
+                    </button>
+                </div>
 
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
+                <InputLabel for="password_confirmation" value="Confirm Password" />
 
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
+                <div class="relative mt-1">
+                    <TextInput
+                        id="password_confirmation"
+                        :type="showPasswordConfirm ? 'text' : 'password'"
+                        class="block w-full pr-16"
+                        v-model="form.password_confirmation"
+                        required
+                        autocomplete="new-password"
+                    />
+                    <button
+                        type="button"
+                        @click="showPasswordConfirm = !showPasswordConfirm"
+                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700 text-xs font-semibold focus:outline-none"
+                    >
+                        {{ showPasswordConfirm ? 'Ocultar' : 'Ver' }}
+                    </button>
+                </div>
 
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
+                <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
             <div class="mt-4 flex items-center justify-end">

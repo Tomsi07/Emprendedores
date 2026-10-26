@@ -32,7 +32,11 @@ function submit() {
 
     <div class="flex min-h-screen bg-white">
         <div class="hidden lg:flex lg:w-2/5 flex-col justify-between bg-[#0f172a] p-12">
+<<<<<<< HEAD
             <div class="flex /*gap-1.5*/">
+=======
+            <div class="flex /gap-1.5/">
+>>>>>>> origin/main
                 <div class="h-2 w-8 bg-[#f4c430]"></div>
                 <div class="h-2 w-8 bg-[#2e9678]"></div>
                 <div class="h-2 w-8 bg-[#1b4b43]"></div>
@@ -45,7 +49,11 @@ function submit() {
             <!--
             <div>
                 <img
+<<<<<<< HEAD
                     src="/images/saladilloImg4.png"
+=======
+                    src="/images/saladilloImg3.png"
+>>>>>>> origin/main
                     alt="Saladillo en Desarrollo"
                     class="w-full max-w-[16rem]"
                 />
@@ -54,7 +62,11 @@ function submit() {
             <div class="flex items-center gap-4">
                 <div>
                     <img
+<<<<<<< HEAD
                         src="/images/saladilloImg12.png"
+=======
+                        src="/images/saladilloImg3.png"
+>>>>>>> origin/main
                         alt="Saladillo en Desarrollo"
                         class="w-full max-w-xxs"
                     />
