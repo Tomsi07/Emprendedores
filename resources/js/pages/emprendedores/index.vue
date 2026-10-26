@@ -181,7 +181,6 @@ const etiqueta = 'block text-xs text-slate-500'
 </script>
 
 <template>
-<<<<<<< HEAD
   <div class="flex min-h-screen bg-white text-[#0e1729]">
     <!-- Navegación Lateral -->
     <SidebarNav />
@@ -204,7 +203,7 @@ const etiqueta = 'block text-xs text-slate-500'
             <p class="text-sm text-slate-500 mt-1">Proyectos e iniciativas registradas en Saladillo.</p>
           </div>
           <button
-            @click="showModal = true"
+            @click="abrirCrear"
             class="px-5 py-3 bg-[#1d4b44] hover:bg-[#163b36] text-white text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2b9a82] focus-visible:ring-offset-2"
           >
             + Nuevo emprendimiento
@@ -244,9 +243,7 @@ const etiqueta = 'block text-xs text-slate-500'
             :class="inputLinea"
           >
             <option value="">Todos</option>
-            <option value="Activo">Activo</option>
-            <option value="En desarrollo">En desarrollo</option>
-            <option value="Inactivo">Inactivo</option>
+            <option v-for="est in listaEstados" :key="est" :value="est">{{ est }}</option>
           </select>
         </label>
 
@@ -269,37 +266,6 @@ const etiqueta = 'block text-xs text-slate-500'
           Limpiar filtros
         </button>
       </section>
-=======
-  <div class="flex min-h-screen bg-slate-100">
-    <SidebarNav />
-
-    <main class="flex-1 ml-64 p-6 space-y-6">
-      
-      <!-- Encabezado -->
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-        <div>
-          <h1 class="text-2xl font-bold text-slate-800">Gestión de Emprendimientos</h1>
-          <p class="text-slate-500 text-sm">Listado general de proyectos e iniciativas registradas.</p>
-        </div>
-        <button 
-          @click="abrirCrear"
-          class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg shadow-sm transition flex items-center justify-center gap-2"
-        >
-          <span>+</span> Nuevo Emprendimiento
-        </button>
-      </div>
-
-      <!-- Buscador -->
-      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-        <input
-          v-model="search"
-          @input="buscar"
-          type="text"
-          placeholder="Buscar por emprendimiento o rubro..."
-          class="w-full px-4 py-2 rounded-lg border border-slate-300 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-      </div>
->>>>>>> origin/main
 
       <!-- Tabla de Datos -->
       <section>
@@ -314,43 +280,31 @@ const etiqueta = 'block text-xs text-slate-500'
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-200">
-<<<<<<< HEAD
             <tr
               v-for="item in emprendimientos.data"
-              :key="item.idEmprendimiento"
+              :key="item.idEmprendimiento || item.id"
               class="hover:bg-slate-50 transition-colors"
             >
               <td class="py-4 pr-6 font-semibold text-[#0e1729]">
-=======
-            <tr v-for="item in emprendimientos.data" :key="item.idEmprendimiento || item.id" class="hover:bg-slate-50 transition">
-              <td class="px-6 py-4 font-bold text-slate-900">
->>>>>>> origin/main
                 {{ item.nombreEmprendimiento }}
               </td>
               <td class="py-4 pr-6 text-slate-600">
                 {{ item.rubro || '-' }}
               </td>
-<<<<<<< HEAD
               <td class="py-4 pr-6">
                 <span
                   class="inline-flex items-center gap-2 text-xs font-medium"
                   :class="{
                     'text-[#1d4b44]': item.estado === 'Activo' || !item.estado,
-                    'text-amber-700': item.estado === 'En desarrollo',
+                    'text-amber-700': item.estado === 'Suspendido',
                     'text-slate-500': item.estado === 'Inactivo'
                   }"
-=======
-              <td class="px-6 py-4">
-                <span 
-                  class="px-2.5 py-1 text-xs font-semibold rounded-full border"
-                  :class="getBadgeClass(item.estado || 'Activo')"
->>>>>>> origin/main
                 >
                   <span
                     class="h-2 w-2 rounded-full"
                     :class="{
                       'bg-[#2b9a82]': item.estado === 'Activo' || !item.estado,
-                      'bg-[#f2c230]': item.estado === 'En desarrollo',
+                      'bg-[#f2c230]': item.estado === 'Suspendido',
                       'bg-slate-400': item.estado === 'Inactivo'
                     }"
                   ></span>
@@ -363,37 +317,24 @@ const etiqueta = 'block text-xs text-slate-500'
                 </span>
                 <span v-else class="text-slate-400 italic">Sin asignar</span>
               </td>
-<<<<<<< HEAD
-              <td class="py-4 text-right">
+              <td class="py-4 text-right space-x-4">
                 <button
-                  @click="eliminar(item.idEmprendimiento)"
-                  class="text-xs font-medium text-rose-700 hover:text-rose-900 hover:underline underline-offset-4 transition-colors"
-=======
-              <td class="px-6 py-4 text-right space-x-2">
-                <button 
-                  @click="abrirEditar(item)" 
-                  class="text-indigo-600 hover:text-indigo-800 text-xs font-semibold px-2 py-1 rounded hover:bg-indigo-50 transition"
+                  @click="abrirEditar(item)"
+                  class="text-xs font-medium text-[#1d4b44] hover:text-[#163b36] hover:underline underline-offset-4 transition-colors"
                 >
                   Editar
                 </button>
-                <button 
-                  @click="eliminar(item.idEmprendimiento || item.id)" 
-                  class="text-rose-600 hover:text-rose-800 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-50 transition"
->>>>>>> origin/main
+                <button
+                  @click="eliminar(item.idEmprendimiento || item.id)"
+                  class="text-xs font-medium text-rose-700 hover:text-rose-900 hover:underline underline-offset-4 transition-colors"
                 >
                   Eliminar
                 </button>
               </td>
             </tr>
-<<<<<<< HEAD
-            <tr v-if="emprendimientos.data.length === 0">
+            <tr v-if="!emprendimientos.data || emprendimientos.data.length === 0">
               <td colspan="5" class="py-10 text-center text-slate-400">
                 No hay emprendimientos que coincidan con los filtros.
-=======
-            <tr v-if="!emprendimientos.data || emprendimientos.data.length === 0">
-              <td colspan="5" class="px-6 py-8 text-center text-slate-400">
-                No se encontraron emprendimientos registrados.
->>>>>>> origin/main
               </td>
             </tr>
           </tbody>
@@ -426,11 +367,12 @@ const etiqueta = 'block text-xs text-slate-500'
     </main>
 
     <!-- Modal Formulario -->
-<<<<<<< HEAD
     <div v-if="showModal" class="fixed inset-0 bg-[#0e1729]/70 flex items-center justify-center p-4 z-50">
-      <div class="bg-white max-w-lg w-full p-8 space-y-6 border-l-4 border-[#1d4b44]">
+      <div class="bg-white max-w-lg w-full p-8 space-y-6 border-l-4 border-[#1d4b44] max-h-[90vh] overflow-y-auto">
         <div class="flex justify-between items-start">
-          <h3 class="text-2xl font-medium text-[#0e1729]">Nuevo emprendimiento</h3>
+          <h3 class="text-2xl font-medium text-[#0e1729]">
+            {{ isEditing ? 'Editar emprendimiento' : 'Nuevo emprendimiento' }}
+          </h3>
           <button
             @click="showModal = false"
             class="text-slate-400 hover:text-slate-700 transition-colors"
@@ -441,110 +383,77 @@ const etiqueta = 'block text-xs text-slate-500'
         <form @submit.prevent="submit" class="space-y-5">
           <label class="block">
             <span :class="etiqueta">Emprendedor responsable</span>
-            <select v-model="form.idEmprendedor" required :class="inputLinea">
-              <option v-for="emp in emprendedores" :key="emp.idEmprendedor" :value="emp.idEmprendedor">
-                {{ emp.nombreEmprendedor }} {{ emp.apellido }}
-              </option>
-            </select>
-          </label>
-=======
-    <div v-if="showModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
-        <div class="flex justify-between items-center border-b pb-3">
-          <h3 class="text-lg font-bold text-slate-800">
-            {{ isEditing ? 'Editar Emprendimiento' : 'Registrar Nuevo Emprendimiento' }}
-          </h3>
-          <button @click="showModal = false" class="text-slate-400 hover:text-slate-600">✕</button>
-        </div>
-
-        <form @submit.prevent="submit" class="space-y-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">
-              Emprendedor Responsable
-            </label>
-            <input 
-              type="text" 
-              v-model="form.nombreEmprendedor" 
-              placeholder="Nombre y Apellido" 
-              required 
-              class="w-full p-2 border rounded-lg text-sm bg-white"
+            <input
+              v-model="form.nombreEmprendedor"
+              type="text"
+              placeholder="Nombre y apellido"
+              required
+              :class="inputLinea"
             />
-          </div>
+          </label>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Teléfono</label>
-              <input 
-                type="text" 
-                v-model="form.telefono" 
-                placeholder="Ej: 2344123456" 
-                class="w-full p-2 border rounded-lg text-sm bg-white"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Email</label>
-              <input 
-                type="email" 
-                v-model="form.email" 
-                placeholder="ejemplo@correo.com" 
-                class="w-full p-2 border rounded-lg text-sm bg-white"
-              />
-            </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <label class="block">
+              <span :class="etiqueta">Teléfono</span>
+              <input v-model="form.telefono" type="text" placeholder="Ej: 2344123456" :class="inputLinea" />
+            </label>
+            <label class="block">
+              <span :class="etiqueta">Email</span>
+              <input v-model="form.email" type="email" placeholder="ejemplo@correo.com" :class="inputLinea" />
+            </label>
           </div>
->>>>>>> origin/main
 
           <label class="block">
             <span :class="etiqueta">Nombre del emprendimiento</span>
             <input v-model="form.nombreEmprendimiento" type="text" required :class="inputLinea" />
           </label>
 
-<<<<<<< HEAD
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <label class="block">
               <span :class="etiqueta">Rubro</span>
-              <input v-model="form.rubro" type="text" placeholder="Ej: Gastronomía, Textil" :class="inputLinea" />
+              <select v-model="rubroSeleccionado" required :class="inputLinea">
+                <option value="" disabled>Seleccioná un rubro</option>
+                <option v-for="rubro in listaRubros" :key="rubro" :value="rubro">{{ rubro }}</option>
+              </select>
             </label>
             <label class="block">
               <span :class="etiqueta">Estado</span>
               <select v-model="form.estado" :class="inputLinea">
-                <option value="Activo">Activo</option>
-                <option value="En desarrollo">En desarrollo</option>
-                <option value="Inactivo">Inactivo</option>
-=======
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <!-- Seleccionable de Rubro -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Rubro</label>
-              <select 
-                v-model="rubroSeleccionado" 
-                class="w-full p-2 border rounded-lg text-sm bg-white outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                <option value="" disabled>Seleccioná un rubro...</option>
-                <option v-for="rubro in listaRubros" :key="rubro" :value="rubro">
-                  {{ rubro }}
-                </option>
-              </select>
-            </div>
-
-            <!-- Seleccionable de Estado -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Estado</label>
-              <select 
-                v-model="form.estado" 
-                class="w-full p-2 border rounded-lg text-sm bg-white outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                <option v-for="est in listaEstados" :key="est" :value="est">
-                  {{ est }}
-                </option>
->>>>>>> origin/main
+                <option v-for="est in listaEstados" :key="est" :value="est">{{ est }}</option>
               </select>
             </label>
           </div>
 
-<<<<<<< HEAD
+          <!-- Campo dinámico para "Otro" -->
+          <label v-if="rubroSeleccionado === 'Otro'" class="block">
+            <span :class="etiqueta">Escribí el rubro</span>
+            <input
+              v-model="rubroPersonalizado"
+              type="text"
+              placeholder="Especificá el rubro del emprendimiento"
+              required
+              :class="inputLinea"
+            />
+          </label>
+
           <label class="block">
-            <span :class="etiqueta">Descripción (opcional)</span>
-            <textarea v-model="form.descripcion" rows="3" :class="inputLinea"></textarea>
+            <span :class="etiqueta">Productos y/o servicios específicos</span>
+            <textarea
+              v-model="form.actividades"
+              rows="2"
+              placeholder="Ej: Tortas, servicios de peloteros, etc."
+              :class="inputLinea"
+            ></textarea>
+          </label>
+
+          <label class="block">
+            <span :class="etiqueta">Necesidades</span>
+            <textarea
+              v-model="form.necesidades"
+              rows="2"
+              placeholder="Ej: Financiamiento, maquinaria nueva"
+              :class="inputLinea"
+            ></textarea>
           </label>
 
           <div class="flex justify-end items-center gap-4 pt-4">
@@ -560,47 +469,7 @@ const etiqueta = 'block text-xs text-slate-500'
               :disabled="form.processing"
               class="px-6 py-3 text-sm bg-[#1d4b44] hover:bg-[#163b36] text-white font-medium disabled:opacity-50 transition-colors"
             >
-              Guardar
-=======
-          <!-- Campo dinámico para "Otro" -->
-          <div v-if="rubroSeleccionado === 'Otro'">
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Escribí el Rubro</label>
-            <input 
-              v-model="rubroPersonalizado" 
-              type="text" 
-              placeholder="Especificá el rubro del emprendimiento" 
-              required
-              class="w-full p-2 border rounded-lg text-sm bg-white outline-none focus:ring-2 focus:ring-indigo-500" 
-            />
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Productos y/o servicios especificos</label>
-            <textarea 
-              v-model="form.actividades" 
-              rows="2" 
-              placeholder="Ej: Tortas, sevicios de peloteros, etc" 
-              class="w-full p-2 border rounded-lg text-sm bg-white"
-            ></textarea>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Necesidades</label>
-            <textarea 
-              v-model="form.necesidades" 
-              rows="2" 
-              placeholder="Ej: Financiamiento, Maquinaria nueva" 
-              class="w-full p-2 border rounded-lg text-sm bg-white"
-            ></textarea>
-          </div>
-
-          <div class="flex justify-end gap-2 pt-4 border-t">
-            <button type="button" @click="showModal = false" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg transition">
-              Cancelar
-            </button>
-            <button type="submit" :disabled="form.processing" class="px-4 py-2 text-sm bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg disabled:opacity-50 transition">
-              {{ isEditing ? 'Guardar Cambios' : 'Guardar' }}
->>>>>>> origin/main
+              {{ isEditing ? 'Guardar cambios' : 'Guardar' }}
             </button>
           </div>
         </form>
