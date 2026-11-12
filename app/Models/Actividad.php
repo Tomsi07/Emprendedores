@@ -11,6 +11,7 @@ class Actividad extends Model
 
     protected $table = 'actividad';
     protected $primaryKey = 'idActividad';
+    public $timestamps = false;
 
     protected $fillable = [
         'idEmprendimiento',
@@ -19,6 +20,7 @@ class Actividad extends Model
         'fechaInicio',
         'fechaFin',
         'estado',
+        'especializacion',
     ];
 
     public function emprendimiento()

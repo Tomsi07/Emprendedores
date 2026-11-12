@@ -11,12 +11,12 @@ class Necesidad extends Model
 
     protected $table = 'necesidad';
     protected $primaryKey = 'idNecesidad';
+    public $timestamps = false;
 
     protected $fillable = [
         'idEmprendimiento',
-        'titulo',
-        'tipo',
-        'estado',
+        'idEvento',
+        'descripcion',
     ];
 
     public function emprendimiento()

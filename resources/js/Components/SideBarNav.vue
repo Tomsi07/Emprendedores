@@ -24,19 +24,20 @@ const user = computed(() => page.props.auth.user)
           <span>Emprendimientos</span>
         </Link>
 
-           <Link
-          :href="route('eventos.index')"
-          :class="[route().current('eventos.*') ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800']"
-          class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition"
-        >
-           <span>Actividades/Eventos</span>
-        </Link>
         <Link
           :href="route('necesidades.index')"
           :class="[route().current('necesidades.*') ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800']"
           class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition"
         >
           <span>Necesidades</span>
+        </Link>
+
+        <Link
+          :href="route('eventos.index')"
+          :class="[route().current('eventos.*') ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800']"
+          class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition"
+        >
+          <span>Actividades/Eventos</span>
         </Link>
 
         <Link
