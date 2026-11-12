@@ -24,13 +24,6 @@ const user = computed(() => page.props.auth.user)
           <span>Emprendimientos</span>
         </Link>
 
-           <Link
-          :href="route('eventos.index')"
-          :class="[route().current('eventos.*') ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800']"
-          class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition"
-        >
-           <span>Actividades/Eventos</span>
-        </Link>
         <Link
           :href="route('necesidades.index')"
           :class="[route().current('necesidades.*') ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800']"
@@ -38,18 +31,32 @@ const user = computed(() => page.props.auth.user)
         >
           <span>Necesidades</span>
         </Link>
+
+        <Link
+          :href="route('eventos.index')"
+          :class="[route().current('eventos.*') ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800']"
+          class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition"
+        >
+          <span>Actividades/Eventos</span>
+        </Link>
+
+        <Link
+          :href="route('asignaciones.index')"
+          :class="[route().current('asignaciones.*') ? 'bg-indigo-600 text-white' : 'text-slate-300 hover:bg-slate-800']"
+          class="flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition"
+        >
+          <span>Asignaciones</span>
+        </Link>
       </nav>
     </div>
 
     <!-- Sección Usuario y Cerrar Sesión -->
     <div class="border-t border-slate-800 pt-4 space-y-3">
-      <!-- Información del Usuario Logueado -->
       <div v-if="user" class="px-3 py-1">
         <p class="text-xs font-semibold text-slate-200 truncate">{{ user.name }}</p>
         <p class="text-xs text-slate-400 truncate">{{ user.email }}</p>
       </div>
 
-      <!-- Botón Cerrar Sesión -->
       <Link
         :href="route('logout')"
         method="post"

@@ -9,29 +9,44 @@ class Emprendimiento extends Model
 {
     use HasFactory;
 
-protected $table = 'emprendimiento';
-protected $primaryKey = 'idEmprendimiento';
+    protected $table = 'emprendimiento';
+    protected $primaryKey = 'idEmprendimiento';
+    public $timestamps = false;
 
     protected $fillable = [
-        'idEmprendedor',
         'nombreEmprendimiento',
-        'rubro',
+        'contacto',
+        'domicilio',
         'estado',
-        'descripcion',
+        'productosServicios',
     ];
 
-    public function emprendedor()
+    public function emprendedores()
     {
-        return $this->belongsTo(Emprendedor::class, 'idEmprendedor', 'idEmprendedor');
+        return $this->belongsToMany(
+            Emprendedor::class,
+            'emprendedor_emprendimiento',
+            'idEmprendimiento',
+            'idEmprendedor',
+            'idEmprendimiento',
+            'idEmprendedor'
+        );
     }
 
     public function necesidades()
-{
-    return $this->hasMany(Necesidad::class, 'idEmprendimiento', 'idEmprendimiento');
-}
+    {
+        return $this->hasMany(Necesidad::class, 'idEmprendimiento', 'idEmprendimiento');
+    }
 
-public function actividades()
-{
-    return $this->hasMany(Actividad::class, 'idEmprendimiento', 'idEmprendimiento');
-}
+    public function actividades()
+    {
+        return $this->belongsToMany(
+            Actividad::class,
+            'emprendimiento_actividad',
+            'idEmprendimiento',
+            'idActividad',
+            'idEmprendimiento',
+            'idActividad'
+        );
+    }
 }

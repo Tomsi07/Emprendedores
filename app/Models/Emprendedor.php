@@ -11,6 +11,7 @@ class Emprendedor extends Model
 
 protected $table = 'emprendedor';
 protected $primaryKey = 'idEmprendedor';
+public $timestamps = false;
 
     protected $fillable = [
         'nombreEmprendedor',

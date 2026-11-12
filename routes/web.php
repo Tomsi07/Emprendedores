@@ -5,6 +5,7 @@ use App\Http\Controllers\EmprendedorController;
 use App\Http\Controllers\EmprendimientoController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\NecesidadController;
+use App\Http\Controllers\AsignacionController;
 use Illuminate\Support\Facades\Route;
 
 // Redirecciones iniciales
@@ -34,6 +35,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('eventos', EventoController::class);
     Route::resource('necesidades', NecesidadController::class);
 
+
+    // Asignaciones (emprendimientos <-> eventos)
+    Route::get('/asignaciones', [AsignacionController::class, 'index'])->name('asignaciones.index');
+    Route::get('/asignaciones/{evento}', [AsignacionController::class, 'show'])->name('asignaciones.show');
+    Route::patch('/asignaciones/{evento}/masivo', [AsignacionController::class, 'updateMasivo'])->name('asignaciones.updateMasivo');
+    Route::get('/asignaciones/{evento}/exportar', [AsignacionController::class, 'exportar'])->name('asignaciones.exportar');
+    Route::patch('/asignaciones/{evento}/emprendimientos/{emprendimiento}', [AsignacionController::class, 'update'])->name('asignaciones.update');
+
     // Superadmin
     Route::prefix('superadmin')->name('superadmin.')->group(function () {
         Route::get('/', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('panel');
@@ -42,3 +51,12 @@ Route::middleware('auth')->group(function () {
 
 });
 require __DIR__.'/auth.php';
+
+    // Superadmin
+    Route::prefix('superadmin')->name('superadmin.')->group(function () {
+        Route::get('/', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('panel');
+        Route::resource('usuarios', App\Http\Controllers\SuperAdmin\UsuarioController::class)->except(['show']);
+    });
+
+require __DIR__.'/auth.php';
+
