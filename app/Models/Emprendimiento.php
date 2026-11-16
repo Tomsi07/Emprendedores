@@ -9,7 +9,7 @@ class Emprendimiento extends Model
 {
     use HasFactory;
 
-protected $table = 'emprendimiento';
+protected $table = 'emprendimientos';
 protected $primaryKey = 'idEmprendimiento';
 
     protected $fillable = [
