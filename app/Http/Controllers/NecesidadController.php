@@ -4,55 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Necesidad;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
 
 class NecesidadController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->input('search');
-
-        $necesidades = Necesidad::with('emprendimiento')
-            ->when($search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    // Columnas posibles en la tabla necesidades
-                    $posiblesColumnas = ['titulo', 'descripcion', 'detalle', 'tipo'];
-                    $primera = true;
-
-                    foreach ($posiblesColumnas as $columna) {
-                        if (Schema::hasColumn('necesidades', $columna)) {
-                            if ($primera) {
-                                $q->where($columna, 'like', "%{$search}%");
-                                $primera = false;
-                            } else {
-                                $q->orWhere($columna, 'like', "%{$search}%");
-                            }
-                        }
-                    }
-                });
-            })
-            ->latest('idNecesidad')
-            ->paginate(10)
-            ->withQueryString();
+        // Se envían todas las necesidades; la búsqueda y la paginación se hacen en el navegador
+        $necesidades = Necesidad::with('emprendimiento:idEmprendimiento,nombreEmprendimiento')
+            ->orderByDesc('idNecesidad')
+            ->get(['idNecesidad', 'idEmprendimiento', 'descripcion'])
+            ->map(fn ($n) => [
+                'idNecesidad'          => $n->idNecesidad,
+                'descripcion'          => $n->descripcion,
+                'nombreEmprendimiento' => $n->emprendimiento?->nombreEmprendimiento,
+            ])
+            ->values();
 
         return Inertia::render('necesidades/nec_index', [
             'necesidades' => $necesidades,
-            'filters'     => ['search' => $search],
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'titulo' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:255',
         ]);
 
         $necesidad = Necesidad::findOrFail($id);
-        
-        $necesidad->update([
-            'titulo' => $validated['titulo'],
-        ]);
+        $necesidad->update(['descripcion' => trim($validated['descripcion'])]);
 
         return redirect()->back()->with('success', 'Necesidad actualizada con éxito.');
     }

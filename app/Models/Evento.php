@@ -13,14 +13,14 @@ class Evento extends Model
     protected $primaryKey = 'idEvento';
     public $timestamps = false;
 
-    protected $fillable = [
-        'nombreEvento',
-        'ciudad',
-        'lugar',
-        'fecha',
-        'tipoDeEvento',
-    ];
-
+  protected $fillable = [
+    'nombreEvento',
+    'ciudad',
+    'lugar',
+    'tipoDeEvento',
+    'fecha',
+    'fechaFin',
+];
     public function emprendimientos()
     {
         return $this->belongsToMany(
